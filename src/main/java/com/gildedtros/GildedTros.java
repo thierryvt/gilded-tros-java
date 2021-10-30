@@ -1,86 +1,96 @@
 package com.gildedtros;
 
 class GildedTros {
-    Item[] items;
+
+    public static final String GOOD_WINE_NAME = "Good Wine";
+    public static final String KEYCHAIN_ITEM_NAME = "B-DAWG Keychain";
+    public static final String REFACTOR_PASS_ITEM_NAME = "Backstage passes for Re:Factor";
+    public static final String HAXX_PASS_ITEM_NAME = "Backstage passes for HAXX";
+
+    private final int MAX_QUALITY_VALUE = 50;
+    private final int MIN_QUALITY_VALUE = 0;
+
+    private final int DEFAULT_QUALITY_INCREMENT = 1;
+    private final int DEFAULT_SELL_IN_INCREMENT = 1;
+
+    private final int BACKSTAGE_PHASE_1_THRESHOLD_DAYS = 10;
+    private final int BACKSTAGE_PHASE_2_THRESHOLD_DAYS = 5;
+    private final int BACKSTAGE_PHASE_1_QUALITY_INCREMENT = 2;
+    private final int BACKSTAGE_PHASE_2_QUALITY_INCREMENT = 3;
+    
+    protected final Item[] items;
 
     public GildedTros(Item[] items) {
         this.items = items;
     }
 
     public void updateQuality() {
-        //ew no getters or setters being used anywhere
-        //todo: solve all the magic strings
-        //todo: improve readability
-        for (int i = 0; i < items.length; i++) {
+        for (Item item : items) {
 
-            //good wine increases in value
-            //backstage passes have special logic
-            if (!items[i].name.equals("Good Wine")
-                    && !items[i].name.equals("Backstage passes for Re:Factor")
-                    && !items[i].name.equals("Backstage passes for HAXX"))
-            {
-                //normal item or a keychain, reduce quality
-                //quality can not be negative
-                if (items[i].quality > 0) {
-                    //keychains never decrease in quality.
-                    if (!items[i].name.equals("B-DAWG Keychain")) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
-            } else {
-                //item is good wine or a backstage pass
-                //quality can never exceed 50
-                if (items[i].quality < 50) {
-                    //hard to read code: how much quality is added in any scenario is not easy to deduce
-                    //good wine increases in value here once too
-                    items[i].quality = items[i].quality + 1;
+            processQuality(item);
 
-                    if (items[i].name.equals("Backstage passes for Re:Factor") || items[i].name.equals("Backstage passes for HAXX") ) {
-                        //confusing if-statement structures, both get hit if sell by is <= 5
-                        //sell by date is <= 10 days, value increases by 2 per day
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
+            reduceSellIn(item, DEFAULT_SELL_IN_INCREMENT);
 
+            checkPastSellByDate(item);
+        }
+    }
+
+    private void processQuality(Item item) {
+        if (item.name.equals(GOOD_WINE_NAME)
+                || item.name.equals(REFACTOR_PASS_ITEM_NAME)
+                || item.name.equals(HAXX_PASS_ITEM_NAME)) {
+            if (item.quality < MAX_QUALITY_VALUE) {
+                if (item.name.equals(REFACTOR_PASS_ITEM_NAME) || item.name.equals(HAXX_PASS_ITEM_NAME)) {
+                    if (item.sellIn <= BACKSTAGE_PHASE_2_THRESHOLD_DAYS) {
                         //sell by is <= 5 days, value increases by 3 per day
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            //keychains dont have a sell-by date
-            if (!items[i].name.equals("B-DAWG Keychain")) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
-
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Good Wine")) {
-                    if (!items[i].name.equals("Backstage passes for Re:Factor") && !items[i].name.equals("Backstage passes for HAXX")) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("B-DAWG Keychain")) {
-                                //normal item
-                                //overdue items lose quality twice as fast (quality has already been reduced once on line 27 so only reduce by 1 here)
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
+                        item.quality += BACKSTAGE_PHASE_2_QUALITY_INCREMENT;
+                    } else if (item.sellIn <= BACKSTAGE_PHASE_1_THRESHOLD_DAYS) {
+                        //sell by date is <= 10 days, value increases by 2 per day
+                        item.quality += BACKSTAGE_PHASE_1_QUALITY_INCREMENT;
                     } else {
-                        //backstage pass
-                        //overly complicated way to set this to 0?
-                        items[i].quality = items[i].quality - items[i].quality;
+                        item.quality += DEFAULT_QUALITY_INCREMENT;
                     }
                 } else {
-                    //good wine past sell by date increases in quality twice as fast
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
+                    item.quality += DEFAULT_QUALITY_INCREMENT;
+                }
+            }
+
+            if (item.quality > MAX_QUALITY_VALUE) {
+                item.quality = MAX_QUALITY_VALUE;
+            }
+        } else if (!item.name.equals(KEYCHAIN_ITEM_NAME) && item.quality > MIN_QUALITY_VALUE) {
+            item.quality -= DEFAULT_QUALITY_INCREMENT;
+        }
+    }
+
+    private void reduceSellIn(Item item, int amount) {
+        //keychains dont have a sell-by date
+        if (!item.name.equals(KEYCHAIN_ITEM_NAME)) {
+            item.sellIn -= amount;
+        }
+    }
+
+    private void checkPastSellByDate(Item item) {
+        if (isPastSellBy(item)) {
+            if (item.name.equals(GOOD_WINE_NAME)) {
+                //good wine past sell by date increases in quality twice as fast
+                if (item.quality < MAX_QUALITY_VALUE) {
+                    item.quality += DEFAULT_QUALITY_INCREMENT;
+                }
+            } else {
+                if (item.name.equals(REFACTOR_PASS_ITEM_NAME) || item.name.equals(HAXX_PASS_ITEM_NAME)) {
+                    //backstage pass
+                    item.quality = 0;
+                } else if (!item.name.equals(KEYCHAIN_ITEM_NAME) && item.quality > MIN_QUALITY_VALUE) {
+                    //normal item
+                    //overdue items lose quality twice as fast (quality has already been reduced once on line 27 so only reduce by 1 here)
+                    item.quality -= DEFAULT_QUALITY_INCREMENT;
                 }
             }
         }
+    }
+
+    private boolean isPastSellBy(Item item) {
+        return item.sellIn < 0;
     }
 }
