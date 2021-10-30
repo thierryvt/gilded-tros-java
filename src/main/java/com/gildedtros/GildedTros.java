@@ -29,10 +29,10 @@ class GildedTros {
                 }
             } else {
                 //item is good wine or a backstage pass
-                //good wine is ignored here though?
                 //quality can never exceed 50
                 if (items[i].quality < 50) {
                     //hard to read code: how much quality is added in any scenario is not easy to deduce
+                    //good wine increases in value here once too
                     items[i].quality = items[i].quality + 1;
 
                     if (items[i].name.equals("Backstage passes for Re:Factor") || items[i].name.equals("Backstage passes for HAXX") ) {
@@ -75,7 +75,7 @@ class GildedTros {
                         items[i].quality = items[i].quality - items[i].quality;
                     }
                 } else {
-                    //good wine
+                    //good wine past sell by date increases in quality twice as fast
                     if (items[i].quality < 50) {
                         items[i].quality = items[i].quality + 1;
                     }
