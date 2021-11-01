@@ -38,7 +38,7 @@ public final class TestHelper {
 
     public static GildedTros createSituation(Item[] items) {
         ConfigurationFactory configurationFactory = new ConfigurationFactoryImpl();
-        ProcessorFactory processorFactory = new ProcessorFactoryImpl(configurationFactory);
+        ProcessorFactory processorFactory = ProcessorFactoryImpl.getInstance(configurationFactory);
         processorFactory.init();
 
         return new GildedTros(items, processorFactory);

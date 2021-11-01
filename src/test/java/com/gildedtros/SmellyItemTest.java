@@ -8,7 +8,7 @@ import static com.gildedtros.TestHelper.*;
 public class SmellyItemTest {
 
     @Test
-    public void testNormalItem(){
+    public void testSmellyItem(){
         GildedTros gildedTros = createSituation(DUPLICATE_CODE_ITEM_NAME, 10, 20);
         Item item = gildedTros.items[0];
 
@@ -20,7 +20,7 @@ public class SmellyItemTest {
     }
 
     @Test
-    public void testNormalItemQualityReductionDoublesPastSellDate() {
+    public void testSmellyItemQualityReductionDoublesPastSellDate() {
         GildedTros gildedTros = createSituation(DUPLICATE_CODE_ITEM_NAME, 10, 20);
         Item item = gildedTros.items[0];
 
@@ -31,7 +31,7 @@ public class SmellyItemTest {
     }
 
     @Test
-    public void testNormalItemQualityNeverNegative() {
+    public void testSmellyItemQualityNeverNegative() {
         GildedTros gildedTros = createSituation(DUPLICATE_CODE_ITEM_NAME, 10, 20);
         Item item = gildedTros.items[0];
 

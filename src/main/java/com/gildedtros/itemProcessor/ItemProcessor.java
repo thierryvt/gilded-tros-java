@@ -14,8 +14,8 @@ public abstract class ItemProcessor {
     }
 
     /***
-     * Default implementation that always reduced the sell-in value by 1
-     * @param item The item to reduce the sell-in valu eof
+     * Default implementation that always reduces the sell-in value by 1
+     * @param item The item to reduce the sell-in value of
      */
     public void updateSellIn(Item item) {
         item.sellIn -= 1;
