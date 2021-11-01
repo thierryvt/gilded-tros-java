@@ -1,9 +1,9 @@
 package com.gildedtros.itemProcessor;
 
-import com.gildedtros.Item;
+import com.gildedtros.entity.Item;
 import com.gildedtros.configuration.ConfigurationFactory;
 import com.gildedtros.configuration.ItemProcessorConfiguration;
-import com.gildedtros.ItemType;
+import com.gildedtros.entity.ItemType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;

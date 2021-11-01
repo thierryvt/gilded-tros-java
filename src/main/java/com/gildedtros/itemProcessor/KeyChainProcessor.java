@@ -1,7 +1,7 @@
 package com.gildedtros.itemProcessor;
 
-import com.gildedtros.Item;
-import com.gildedtros.ItemType;
+import com.gildedtros.entity.Item;
+import com.gildedtros.entity.ItemType;
 
 public class KeyChainProcessor extends ItemProcessor {
 

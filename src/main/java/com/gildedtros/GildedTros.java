@@ -1,5 +1,6 @@
 package com.gildedtros;
 
+import com.gildedtros.entity.Item;
 import com.gildedtros.itemProcessor.ItemProcessor;
 import com.gildedtros.itemProcessor.ProcessorFactory;
 

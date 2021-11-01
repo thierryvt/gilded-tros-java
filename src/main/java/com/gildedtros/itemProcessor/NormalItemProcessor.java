@@ -1,24 +1,16 @@
 package com.gildedtros.itemProcessor;
 
-import com.gildedtros.Item;
-import com.gildedtros.ItemType;
+import com.gildedtros.entity.Item;
+import com.gildedtros.entity.ItemType;
 
 public class NormalItemProcessor extends ItemProcessor {
 
-    @Override
-    public void updateSellIn(Item item) {
-        item.sellIn -= 1;
-    }
+    private static final int NORMAL_QUALITY_INCREMENT = 1;
+    private static final int PAST_SELL_BY_QUALITY_INCREMENT = 2;
 
     @Override
     public void updateQuality(Item item) {
-        if(!isMinQuality(item) && !isBelowMinQuality(item)) {
-            item.quality -= isPastSellByDate(item) ? 2 : 1;
-        }
-
-        if(isBelowMinQuality(item)) {
-            item.quality = MIN_QUALITY_VALUE;
-        }
+        decreaseQuality(item, isPastSellByDate(item) ? PAST_SELL_BY_QUALITY_INCREMENT : NORMAL_QUALITY_INCREMENT);
     }
 
     @Override

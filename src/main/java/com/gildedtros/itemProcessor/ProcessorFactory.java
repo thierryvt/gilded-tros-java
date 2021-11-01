@@ -1,9 +1,6 @@
 package com.gildedtros.itemProcessor;
 
-import com.gildedtros.Item;
-import com.gildedtros.configuration.ItemProcessorConfiguration;
-
-import java.util.Collection;
+import com.gildedtros.entity.Item;
 
 public interface ProcessorFactory {
 

@@ -1,26 +1,19 @@
 package com.gildedtros.itemProcessor;
 
-import com.gildedtros.Item;
-import com.gildedtros.ItemType;
+import com.gildedtros.entity.Item;
+import com.gildedtros.entity.ItemType;
 
 public class GoodWineProcessor extends ItemProcessor {
 
-    @Override
-    public void updateSellIn(Item item) {
-        item.sellIn -= 1;
-    }
+    private static final int NORMAL_QUALITY_INCREMENT = 1;
+    private static final int PAST_SELL_BY_QUALITY_INCREMENT = 2;
 
     @Override
     public void updateQuality(Item item) {
-        //todo centralize quality changing and checks
         if (isPastSellByDate(item)) {
-            item.quality += 2;
+            increaseQuality(item, PAST_SELL_BY_QUALITY_INCREMENT);
         } else {
-            item.quality += 1;
-        }
-
-        if(isAboveMaxQuality(item)) {
-            item.quality = MAX_QUALITY_VALUE;
+            increaseQuality(item, NORMAL_QUALITY_INCREMENT);
         }
     }
 

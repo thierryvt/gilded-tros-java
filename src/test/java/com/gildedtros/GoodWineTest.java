@@ -1,5 +1,6 @@
 package com.gildedtros;
 
+import com.gildedtros.entity.Item;
 import org.junit.jupiter.api.Test;
 
 import static com.gildedtros.TestHelper.*;

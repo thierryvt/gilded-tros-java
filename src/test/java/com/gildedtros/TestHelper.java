@@ -2,6 +2,7 @@ package com.gildedtros;
 
 import com.gildedtros.configuration.ConfigurationFactory;
 import com.gildedtros.configuration.ConfigurationFactoryImpl;
+import com.gildedtros.entity.Item;
 import com.gildedtros.itemProcessor.ProcessorFactory;
 import com.gildedtros.itemProcessor.ProcessorFactoryImpl;
 
