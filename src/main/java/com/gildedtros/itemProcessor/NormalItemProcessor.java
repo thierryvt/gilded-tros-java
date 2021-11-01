@@ -12,8 +12,8 @@ public class NormalItemProcessor extends ItemProcessor {
 
     @Override
     public void updateQuality(Item item) {
-        if(!isMinQuality(item) && ! isBelowMinQuality(item)) {
-            item.quality -= 1;
+        if(!isMinQuality(item) && !isBelowMinQuality(item)) {
+            item.quality -= isPastSellByDate(item) ? 2 : 1;
         }
 
         if(isBelowMinQuality(item)) {

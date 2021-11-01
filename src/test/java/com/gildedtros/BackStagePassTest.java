@@ -12,7 +12,7 @@ public class BackStagePassTest {
         Item item = gildedTros.items[0];
 
         simulateDays(gildedTros, 5);
-        verifyState(10, 25, item);
+        verifyState(10, 26, item);
     }
 
     @Test
@@ -21,9 +21,9 @@ public class BackStagePassTest {
         Item item = gildedTros.items[0];
 
         simulateDays(gildedTros, 5);
-        verifyState(10, 25, item);
+        verifyState(10, 26, item);
         simulateDays(gildedTros, 5);
-        verifyState(5, 35, item);
+        verifyState(5, 37, item);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class BackStagePassTest {
         Item item = gildedTros.items[0];
 
         simulateDays(gildedTros, 10);
-        verifyState(5, 35, item);
+        verifyState(5, 37, item);
         simulateDays(gildedTros, 5);
         verifyState(0, 50, item);
     }

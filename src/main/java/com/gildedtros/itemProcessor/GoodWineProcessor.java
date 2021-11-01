@@ -18,6 +18,10 @@ public class GoodWineProcessor extends ItemProcessor {
         } else {
             item.quality += 1;
         }
+
+        if(isAboveMaxQuality(item)) {
+            item.quality = MAX_QUALITY_VALUE;
+        }
     }
 
     @Override

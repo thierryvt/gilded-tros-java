@@ -18,7 +18,7 @@ public class TexttestFixture {
                 new Item("Long Methods", 3, 6),
                 new Item("Ugly Variable Names", 3, 6) };
 
-        GildedTros app = new GildedTros(items);
+        GildedTros app = TestHelper.createSituation(items);
 
         int days = 2;
         if (args.length > 0) {

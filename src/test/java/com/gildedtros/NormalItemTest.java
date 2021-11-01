@@ -9,10 +9,11 @@ public class NormalItemTest {
 
     @Test
     public void testFoo() {
-        Item[] items = new Item[] { new Item("foo", 0, 0) };
-        GildedTros app = new GildedTros(items);
-        app.updateQuality();
-        assertEquals("foo", app.items[0].name);
+        GildedTros gildedTros = createSituation("foo", 0, 0);
+        Item item = gildedTros.items[0];
+
+        gildedTros.updateQuality();
+        assertEquals("foo", item.name);
     }
 
     @Test

@@ -1,5 +1,10 @@
 package com.gildedtros;
 
+import com.gildedtros.configuration.ConfigurationFactory;
+import com.gildedtros.configuration.ConfigurationFactoryImpl;
+import com.gildedtros.itemProcessor.ProcessorFactory;
+import com.gildedtros.itemProcessor.ProcessorFactoryImpl;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class TestHelper {
@@ -27,6 +32,14 @@ public final class TestHelper {
                 item
         };
 
-        return new GildedTros(items);
+        return createSituation(items);
+    }
+
+    public static GildedTros createSituation(Item[] items) {
+        ConfigurationFactory configurationFactory = new ConfigurationFactoryImpl();
+        ProcessorFactory processorFactory = new ProcessorFactoryImpl(configurationFactory);
+        processorFactory.init();
+
+        return new GildedTros(items, processorFactory);
     }
 }
