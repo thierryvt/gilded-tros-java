@@ -12,14 +12,15 @@ import java.util.Map;
 
 public class ProcessorFactoryImpl implements ProcessorFactory {
 
-    //todo processors now always use default values for min and max quality
+    private static final int DEFAULT_MAX_QUALITY_VALUE = 50;
+    private static final int DEFAULT_MIN_QUALITY_VALUE = 0;
 
     private Map<ItemType, ItemProcessor> processors;
     private Map<String, ItemType> itemNameTypeMap;
 
     private final ConfigurationFactory configurationFactory;
 
-    private static final ItemProcessor DEFAULT_PROCESSOR = new NormalItemProcessor();
+    private static final ItemProcessor DEFAULT_PROCESSOR = new NormalItemProcessor(DEFAULT_MAX_QUALITY_VALUE, DEFAULT_MIN_QUALITY_VALUE);
 
     public ProcessorFactoryImpl(ConfigurationFactory configurationFactory) {
         this.configurationFactory = configurationFactory;
@@ -39,8 +40,11 @@ public class ProcessorFactoryImpl implements ProcessorFactory {
         for (ItemProcessorConfiguration configuration : configurations) {
             try {
                 if (!processors.containsKey(configuration.getItemName())) {
+                    int maxQuality = configuration.getOverrideMaxQualityValue() == null ? DEFAULT_MAX_QUALITY_VALUE : configuration.getOverrideMaxQualityValue();
+                    int minQuality = configuration.getOverrideMinQualityValue() == null ? DEFAULT_MIN_QUALITY_VALUE : configuration.getOverrideMinQualityValue();
+
                     Class<?> clazz = Class.forName(configuration.getProcessorClassName());
-                    ItemProcessor itemProcessor = (ItemProcessor) clazz.getConstructor().newInstance();
+                    ItemProcessor itemProcessor = (ItemProcessor) clazz.getConstructor(int.class, int.class).newInstance(maxQuality, minQuality);
 
                     ItemType type = itemProcessor.getItemType();
                     itemNameTypeMap.putIfAbsent(configuration.getItemName(), type);
@@ -48,7 +52,7 @@ public class ProcessorFactoryImpl implements ProcessorFactory {
                 }
             } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException ex) {
                 //Should ideally be handled by a logging framework
-                System.out.println("ERROR: Failed to initialize item processor for configuration: " + configuration.toString());
+                System.out.println("ERROR: Failed to initialize item processor for configuration: " + configuration);
                 ex.printStackTrace();
             }
         }

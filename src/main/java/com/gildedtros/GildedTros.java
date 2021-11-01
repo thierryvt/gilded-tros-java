@@ -19,10 +19,8 @@ class GildedTros {
         for (Item item : items) {
             ItemProcessor processor = processorFactory.getProcessorForItem(item);
 
-            if(processor != null) {
-                processor.updateSellIn(item);
-                processor.updateQuality(item);
-            }
+            processor.updateSellIn(item);
+            processor.updateQuality(item);
         }
     }
 }

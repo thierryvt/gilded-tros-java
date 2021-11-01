@@ -8,6 +8,10 @@ public class GoodWineProcessor extends ItemProcessor {
     private static final int NORMAL_QUALITY_INCREMENT = 1;
     private static final int PAST_SELL_BY_QUALITY_INCREMENT = 2;
 
+    public GoodWineProcessor(int maxQuality, int minQuality) {
+        super(maxQuality, minQuality);
+    }
+
     @Override
     public void updateQuality(Item item) {
         if (isPastSellByDate(item)) {

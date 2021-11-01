@@ -14,10 +14,10 @@ public class ConfigurationFactoryImpl implements ConfigurationFactory {
         Collection<ItemProcessorConfiguration> configurations = new ArrayList<>();
 
         //ideally these would be loaded in from a config file or database
-        configurations.add(new ItemProcessorConfiguration(GOOD_WINE_NAME, "com.gildedtros.itemProcessor.GoodWineProcessor"));
-        configurations.add(new ItemProcessorConfiguration(KEYCHAIN_ITEM_NAME, "com.gildedtros.itemProcessor.KeyChainProcessor"));
-        configurations.add(new ItemProcessorConfiguration(REFACTOR_PASS_ITEM_NAME, "com.gildedtros.itemProcessor.BackStagePassProcessor"));
-        configurations.add(new ItemProcessorConfiguration(HAXX_PASS_ITEM_NAME, "com.gildedtros.itemProcessor.BackStagePassProcessor"));
+        configurations.add(new ItemProcessorConfiguration(GOOD_WINE_NAME, "com.gildedtros.itemProcessor.GoodWineProcessor", null, null));
+        configurations.add(new ItemProcessorConfiguration(KEYCHAIN_ITEM_NAME, "com.gildedtros.itemProcessor.KeyChainProcessor", 80, null));
+        configurations.add(new ItemProcessorConfiguration(REFACTOR_PASS_ITEM_NAME, "com.gildedtros.itemProcessor.BackStagePassProcessor", null, null));
+        configurations.add(new ItemProcessorConfiguration(HAXX_PASS_ITEM_NAME, "com.gildedtros.itemProcessor.BackStagePassProcessor", null, null));
 
         return configurations;
     }

@@ -12,6 +12,10 @@ public class BackStagePassProcessor extends ItemProcessor {
     private static final int BACKSTAGE_PHASE_1_QUALITY_INCREMENT = 2;
     private static final int BACKSTAGE_PHASE_2_QUALITY_INCREMENT = 3;
 
+    public BackStagePassProcessor(int maxQuality, int minQuality) {
+        super(maxQuality, minQuality);
+    }
+
     @Override
     public void updateQuality(Item item) {
         if(isPastSellByDate(item)) {
