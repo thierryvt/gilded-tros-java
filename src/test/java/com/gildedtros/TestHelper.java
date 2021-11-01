@@ -14,7 +14,7 @@ public final class TestHelper {
     public static final String GOOD_WINE_NAME = "Good Wine";
     public static final String KEYCHAIN_ITEM_NAME = "B-DAWG Keychain";
     public static final String REFACTOR_PASS_ITEM_NAME = "Backstage passes for Re:Factor";
-    public static final String HAXX_PASS_ITEM_NAME = "Backstage passes for HAXX";
+    public static final String DUPLICATE_CODE_ITEM_NAME = "Duplicate Code";
 
     public static void verifyState(int expectedSellIn, int expectedQuality, Item item) {
         assertEquals(expectedSellIn, item.sellIn);
