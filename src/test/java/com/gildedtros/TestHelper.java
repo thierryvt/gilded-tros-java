@@ -14,7 +14,10 @@ public final class TestHelper {
     public static final String GOOD_WINE_NAME = "Good Wine";
     public static final String KEYCHAIN_ITEM_NAME = "B-DAWG Keychain";
     public static final String REFACTOR_PASS_ITEM_NAME = "Backstage passes for Re:Factor";
+    public static final String HAXX_PASS_ITEM_NAME = "Backstage passes for HAXX";
     public static final String DUPLICATE_CODE_ITEM_NAME = "Duplicate Code";
+    public static final String LONG_METHODS_ITEM_NAME = "Long Methods";
+    public static final String UGLY_VARIABLE_NAMES_ITEM_NAME = "Ugly Variable Names";
 
     public static void verifyState(int expectedSellIn, int expectedQuality, Item item) {
         assertEquals(expectedSellIn, item.sellIn);
@@ -39,7 +42,6 @@ public final class TestHelper {
     public static GildedTros createSituation(Item[] items) {
         ConfigurationFactory configurationFactory = new ConfigurationFactoryImpl();
         ProcessorFactory processorFactory = ProcessorFactoryImpl.getInstance(configurationFactory);
-        processorFactory.init();
 
         return new GildedTros(items, processorFactory);
     }

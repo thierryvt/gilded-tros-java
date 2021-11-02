@@ -27,13 +27,13 @@ public class ProcessorFactoryImpl implements ProcessorFactory {
     public static ProcessorFactoryImpl getInstance(ConfigurationFactory configurationFactory){
         if(instance == null) {
             instance = new ProcessorFactoryImpl(configurationFactory);
+            instance.init();
         }
 
         return instance;
     }
 
-    @Override
-    public void init() {
+    private void init() {
         if(processors != null) {
             System.out.println("WARN: Processor Factory already initialized.");
             return;
