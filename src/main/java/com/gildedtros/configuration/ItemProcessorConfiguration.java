@@ -2,33 +2,12 @@ package com.gildedtros.configuration;
 
 public class ItemProcessorConfiguration {
 
-    private Integer overrideMaxQualityValue;
-    private Integer overrideMinQualityValue;
-
     private String itemName;
     private String processorClassName;
 
-    public ItemProcessorConfiguration(String itemName, String processorClassName, Integer overrideMaxQualityValue, Integer overrideMinQualityValue) {
-        this.overrideMaxQualityValue = overrideMaxQualityValue;
-        this.overrideMinQualityValue = overrideMinQualityValue;
+    public ItemProcessorConfiguration(String itemName, String processorClassName) {
         this.itemName = itemName;
         this.processorClassName = processorClassName;
-    }
-
-    public Integer getOverrideMaxQualityValue() {
-        return overrideMaxQualityValue;
-    }
-
-    public void setOverrideMaxQualityValue(Integer overrideMaxQualityValue) {
-        this.overrideMaxQualityValue = overrideMaxQualityValue;
-    }
-
-    public Integer getOverrideMinQualityValue() {
-        return overrideMinQualityValue;
-    }
-
-    public void setOverrideMinQualityValue(Integer overrideMinQualityValue) {
-        this.overrideMinQualityValue = overrideMinQualityValue;
     }
 
     public String getItemName() {

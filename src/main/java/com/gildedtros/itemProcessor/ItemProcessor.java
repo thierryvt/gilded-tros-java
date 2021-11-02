@@ -5,13 +5,8 @@ import com.gildedtros.entity.ItemType;
 
 public abstract class ItemProcessor {
 
-    private final int maxQuality;
-    private final int minQuality;
-
-    public ItemProcessor(int maxQuality, int minQuality) {
-        this.maxQuality = maxQuality;
-        this.minQuality = minQuality;
-    }
+    private static final int MAX_QUALITY = 50;
+    private static final int MIN_QUALITY = 0;
 
     /***
      * Default implementation that always reduces the sell-in value by 1
@@ -45,7 +40,7 @@ public abstract class ItemProcessor {
         }
 
         if(isAboveMaxQuality(item)) {
-            item.quality = maxQuality;
+            item.quality = MAX_QUALITY;
         }
     }
 
@@ -61,24 +56,24 @@ public abstract class ItemProcessor {
         }
 
         if(isBelowMinQuality(item)) {
-            item.quality = minQuality;
+            item.quality = MIN_QUALITY;
         }
     }
 
     protected final boolean isMaxQuality(Item item) {
-        return item.quality == maxQuality;
+        return item.quality == MAX_QUALITY;
     }
 
     protected final boolean isMinQuality(Item item) {
-        return item.quality == minQuality;
+        return item.quality == MIN_QUALITY;
     }
 
     protected final boolean isAboveMaxQuality(Item item) {
-        return item.quality > maxQuality;
+        return item.quality > MAX_QUALITY;
     }
 
     protected final boolean isBelowMinQuality(Item item) {
-        return item.quality < minQuality;
+        return item.quality < MIN_QUALITY;
     }
 
     protected final boolean isPastSellByDate(Item item) {
@@ -86,6 +81,6 @@ public abstract class ItemProcessor {
     }
 
     protected final void setMaxQuality(Item item) {
-        item.quality = maxQuality;
+        item.quality = MAX_QUALITY;
     }
 }

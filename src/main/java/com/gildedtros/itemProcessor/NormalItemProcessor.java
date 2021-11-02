@@ -8,10 +8,6 @@ public class NormalItemProcessor extends ItemProcessor {
     private static final int NORMAL_QUALITY_INCREMENT = 1;
     private static final int PAST_SELL_BY_QUALITY_INCREMENT = 2;
 
-    public NormalItemProcessor(int maxQuality, int minQuality) {
-        super(maxQuality, minQuality);
-    }
-
     @Override
     public void updateQuality(Item item) {
         decreaseQuality(item, isPastSellByDate(item) ? PAST_SELL_BY_QUALITY_INCREMENT : NORMAL_QUALITY_INCREMENT);
